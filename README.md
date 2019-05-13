@@ -12,5 +12,7 @@ Brute force wordpress XML-RPC multithread
 [!] Desenvolvido por ./Cryptonking (B4l0x)
 
 --lista - Lista de sites wordpress
+
 --wordlist - Wordlist de senhas
+
 --usuario - Indicar usuario especifico sem usar o search automatico
