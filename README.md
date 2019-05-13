@@ -14,18 +14,12 @@ from colorama import *<br>
 import time<br>
 import socket<br>
 
-[!] Scanner cms (wordpress)
-
-[!] Scanner de portas 21,23,80,445,3306 - Em desenvolvimento
-
-[!] Mass brute force - Disponivel na versão 2.0
-
-[!] Reverse ip domain - Em desenvolvimento
-
-[!] Desenvolvido por ./Cryptonking (B4l0x)
-
---lista - Lista de sites wordpress
-
---wordlist - Wordlist de senhas
-
+[!] Scanner cms (wordpress)<br>
+[!] Scanner de portas 21,23,80,445,3306 - Em desenvolvimento<br>
+[!] Mass brute force - Disponivel na versão 2.0<br>
+[!] Reverse ip domain - Em desenvolvimento<br>
+[!] Desenvolvido por ./Cryptonking (B4l0x)<br>
+<br><br>
+--lista - Lista de sites wordpress<br>
+--wordlist - Wordlist de senhas<br>
 --usuario - Indicar usuario especifico sem usar o search automatico
