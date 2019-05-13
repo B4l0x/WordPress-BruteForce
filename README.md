@@ -1,18 +1,11 @@
 # WordPress-BruteForce
 Brute force wordpress XML-RPC multithread
 
-    ____             __      _       __
-   / __ \_________  / /_____| |     / /___ __   _____ 
-  / /_/ / ___/ __ \/ __/ __ \ | /| / / __ `/ | / / _ \
- / ____/ /  / /_/ / /_/ /_/ / |/ |/ / /_/ /| |/ /  __/
-/_/   /_/   \____/\__/\____/|__/|__/\__,_/ |___/\___/ 
- v1.1
-
 [!] Scanner cms (wordpress)
 [!] Scanner de portas 21,23,80,445,3306 - Em desenvolvimento
 [!] Mass brute force - Disponivel na versão 2.0
 [!] Reverse ip domain - Em desenvolvimento
-[!] Desenvolvido por ./Cryptonking (B4l0x)
+[!] Desenvolvido por ./Cryptonking (B4l0x)<br>
 
 --lista - Lista de sites wordpress
 --wordlist - Wordlist de senhas
