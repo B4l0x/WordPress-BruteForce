@@ -19,7 +19,7 @@ import socket<br>
 [!] Mass brute force - Disponivel na versão 2.0<br>
 [!] Reverse ip domain - Em desenvolvimento<br>
 [!] Desenvolvido por ./Cryptonking (B4l0x)<br>
-<br><br>
+
 --lista - Lista de sites wordpress<br>
 --wordlist - Wordlist de senhas<br>
 --usuario - Indicar usuario especifico sem usar o search automatico
