@@ -1,7 +1,7 @@
 # WordPress-BruteForce
 Brute force wordpress XML-RPC multithread
 
-Não ative as funções desativadas pois elas estão em manutenção e vão causar o mal funcionamento do script
+<b>Não ative as funções desativadas pois elas estão em manutenção e vão causar o mal funcionamento do script</b>
 
 import threading<br>
 import urllib2<br>
