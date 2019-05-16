@@ -2,17 +2,15 @@
 Brute force wordpress XML-RPC multithread
 
 import threading<br>
-import multiprocessing<br>
-import urllib2<br>
+import urllib2<br><br>
 import urllib<br>
 import json<br>
 import requests<br>
 import argparse as arg<br>
 import sys<br>
 import os<br>
-from colorama import *<br>
 import time<br>
-import socket<br>
+import socket
 
 [!] Scanner cms (wordpress)<br>
 [!] Scanner de portas 21,23,80,445,3306 - Em desenvolvimento<br>
