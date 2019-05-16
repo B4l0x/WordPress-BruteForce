@@ -2,7 +2,7 @@
 Brute force wordpress XML-RPC multithread
 
 import threading<br>
-import urllib2<br><br>
+import urllib2<br>
 import urllib<br>
 import json<br>
 import requests<br>
