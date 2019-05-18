@@ -1,25 +1,20 @@
 # WordPress-BruteForce
-Brute force wordpress XML-RPC multithread
+Brute force wordpress XML-RPC thread
 
 <b>Não ative as funções desativadas pois elas estão em manutenção e vão causar o mal funcionamento do script</b>
 
-import threading<br>
-import urllib2<br>
-import urllib<br>
+import thread<br>
 import json<br>
 import requests<br>
 import argparse as arg<br>
 import sys<br>
 import os<br>
-import time<br>
-import socket
+import time
 
-[!] Scanner cms (wordpress)<br>
-[!] Scanner de portas 21,23,80,445,3306 - Em desenvolvimento<br>
-[!] Mass brute force - Disponivel na versão 2.0<br>
-[!] Reverse ip domain - Em desenvolvimento<br>
-[!] Desenvolvido por ./Cryptonking (B4l0x)<br>
+[!] Brute/Scanner cms (wordpress)<br>
+[!] Mass brute force - Disponivel na versao 2.0<br>
+[!] Desenvolvido por ./Cryptonking (B4l0x)
 
---lista - Lista de sites wordpress<br>
+--site - Site wordpress alvo<br>
 --wordlist - Wordlist de senhas<br>
---usuario - Indicar usuario especifico sem usar o search automatico
+--usuario - <b>Somente use essa opção para brutar usuarios unicos, o script captura usuarios automaticamente.</b>
